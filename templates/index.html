@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fraud Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>💳 Credit Card Fraud Detection</h1>
+
+    <button type="button" onclick="loadSample()" class="sample-btn">
+        🔄 Auto Fill Sample Data
+    </button>
+
+    <form action="/predict" method="POST">
+
+        <div class="grid">
+            {% for i in range(1, 29) %}
+                <div class="input-box">
+                    <label>V{{i}}</label>
+                    <input type="number" step="any" name="V{{i}}" id="V{{i}}" required>
+                </div>
+            {% endfor %}
+
+            <div class="input-box">
+                <label>Amount</label>
+                <input type="number" step="any" name="Amount" id="Amount" required>
+            </div>
+        </div>
+
+        <button type="submit">Predict Transaction</button>
+    </form>
+</div>
+
+<script>
+function loadSample() {
+    fetch('/sample')
+    .then(response => response.json())
+    .then(data => {
+        for (let key in data) {
+            document.getElementById(key).value = data[key];
+        }
+    });
+}
+</script>
+
+</body>
+</html>

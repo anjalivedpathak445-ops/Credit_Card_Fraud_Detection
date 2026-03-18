@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container result-container">
+    <h1>🔎 Prediction Result</h1>
+
+    <div class="result {{ css_class }}">
+        {{ prediction }}
+    </div>
+
+    <div class="probabilities">
+        <p>🟢 Normal Probability: {{ normal_prob }} %</p>
+        <p>🔴 Fraud Probability: {{ fraud_prob }} %</p>
+    </div>
+
+    <a href="/" class="back-btn">🔙 Try Again</a>
+</div>
+
+</body>
+</html>
