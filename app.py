@@ -1,40 +1,35 @@
 from flask import Flask, render_template, request, jsonify
 import numpy as np
 import joblib
-import pandas as pd
 import random
 
 app = Flask(__name__)
 
-# Load model
+# ✅ Load model
 model = joblib.load("credit_card_model.pkl")
 
-# Load dataset
-data = pd.read_csv("creditcard.csv")
 
-
+# ✅ Home Page
 @app.route('/')
 def home():
     return render_template('index.html')
 
 
-# 🔥 Auto-fill route
+# ✅ Sample Data (NO CSV → No crash)
 @app.route('/sample')
 def sample():
-    # Get random row
-    row = data.sample(1).iloc[0]
-
     sample_data = {}
 
-    # V1 to V28
+    # Generate random values similar to dataset
     for i in range(1, 29):
-        sample_data[f'V{i}'] = float(row[f'V{i}'])
+        sample_data[f'V{i}'] = round(random.uniform(-5, 5), 4)
 
-    sample_data['Amount'] = float(row['Amount'])
+    sample_data['Amount'] = round(random.uniform(1, 5000), 2)
 
     return jsonify(sample_data)
 
 
+# ✅ Prediction Route
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
@@ -74,5 +69,6 @@ def predict():
                                fraud_prob=0)
 
 
+# ❌ DO NOT use debug=True on Render
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
