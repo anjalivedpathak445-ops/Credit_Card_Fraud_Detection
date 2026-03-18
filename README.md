@@ -1,0 +1,1 @@
+Machine Learning project for detecting fraudulent credit card transactions by analyzing transaction patterns. The model uses data preprocessing and classification algorithms to identify suspicious activities with high accuracy. Built using Python and Scikit-learn for financial fraud prevention.
